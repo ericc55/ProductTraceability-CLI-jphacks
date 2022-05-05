@@ -5,17 +5,27 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "i18n:report": "vue-cli-service i18n:report --src \"./src/**/*.?(js|vue)\" --locales \"./src/locales/**/*.json\""
   },
   "dependencies": {
+    "@element-plus/icons-vue": "^1.1.4",
+    "axios": "^0.27.2",
     "core-js": "^3.8.3",
+    "cropperjs": "^1.5.12",
+    "element-china-area-data": "^5.0.2",
+    "element-plus": "^2.1.11",
     "vue": "^3.2.13",
+    "vue-cropperjs": "^5.0.0",
+    "vue-i18n": "^9.1.0",
     "vue-router": "^4.0.3",
-    "vuex": "^4.0.0"
+    "vuex": "^4.0.0",
+    "web3": "^1.7.3"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",
     "@babel/eslint-parser": "^7.12.16",
+    "@intlify/vue-i18n-loader": "^3.0.0",
     "@vue/cli-plugin-babel": "~5.0.0",
     "@vue/cli-plugin-eslint": "~5.0.0",
     "@vue/cli-plugin-router": "~5.0.0",
@@ -28,7 +38,8 @@
     "eslint-plugin-vuejs-accessibility": "^1.1.0",
     "lint-staged": "^11.1.2",
     "sass": "^1.32.7",
-    "sass-loader": "^12.0.0"
+    "sass-loader": "^12.0.0",
+    "vue-cli-plugin-i18n": "~2.3.1"
   },
   "eslintConfig": {
     "root": true,
@@ -42,7 +53,10 @@
     "parserOptions": {
       "parser": "@babel/eslint-parser"
     },
-    "rules": {}
+    "rules": {
+      "vuejs-accessibility/click-events-have-key-events": "off",
+      "vue/multi-word-component-names": "off"
+    }
   },
   "browserslist": [
     "> 1%",
