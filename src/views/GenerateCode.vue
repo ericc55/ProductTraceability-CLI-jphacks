@@ -49,7 +49,7 @@ export default {
       const unixTime = Math.floor(Date.now());
       bc.generateProductID(address, { time: unixTime }).then((res) => {
         console.log(res);
-        this.tableData[0].value = res;
+        this.tableData.push({ value: res });
       });
     },
   },

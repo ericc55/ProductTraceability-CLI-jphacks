@@ -51,6 +51,7 @@
 <script>
 import * as bc from '../blockchain';
 import service from '../utils/request';
+import byte from '../utils/StrByte';
 
 export default {
   name: 'trace',
@@ -69,10 +70,12 @@ export default {
     traceOn() {
       this.traceData = [];
       bc.getGlobalComplain(this.userID, this.unitID).then((res) => {
-        // console.log(res);
+        console.log(res);
         for (let i = 0, len = res.length; i < len; i += 1) {
-          console.log(res[i]);
-          this.traceData[i].userID = res[i].returnValues.userID;
+          console.log(res[i].returnValues.userID);
+          const userIDstr = byte.byteToString(res[i].returnValues.userID);
+          console.log(userIDstr);
+          this.traceData[i].userID = userIDstr;
           service.get('/unit', { params: { ID: this.unitID } }).then((record) => {
             this.tableData[i].name = record.unitName;
           });

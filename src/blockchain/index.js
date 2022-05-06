@@ -5,7 +5,7 @@ let TraceSystem = null;
 export const updateWeb3 = async (web3) => {
   TraceSystem = new web3.eth.Contract(
     TraceSystemJson.abi,
-    '0x52AB327A14E59CE3828Dc202CBFA6fBB6cB52ab9',
+    '0xcA838083225eEd7BEfE71bAEE088BaD2AeCE8558',
   );
 };
 export const getTrace = async (productID) => {
@@ -65,6 +65,12 @@ export const confirm = async (sender, { productID, state }) => {
   });
 };
 
+export const complain = async (sender, { unitID }) => {
+  await TraceSystem.methods.complain(unitID).send({
+    from: sender,
+  });
+};
+
 export const callUserRegister = async (sender, { id }) => {
   console.log(id);
   const flag = await TraceSystem.methods.userRegister(id).call({
@@ -108,13 +114,20 @@ export const score = async (sender, { unitID, point }) => {
   console.log(sender, unitID, point);
   await TraceSystem.methods.score(id, point * 2).send({ from: sender });
 };
-export const getCredit = async (sender) => {
-  console.log(sender);
+export const getCredit = async (sender, { userID }) => {
+  const credit = await TraceSystem.methods.getCredit(userID).call({ from: sender });
+  return credit;
+};
+
+export const getScore = async (sender, { unitID }) => {
+  const credit = await TraceSystem.methods.getScore(unitID).call({ from: sender });
+  return credit;
 };
 export const getUnitID = async (sender) => {
   const id = await TraceSystem.methods.getUnitID().call({ from: sender });
   return id;
 };
+
 export const HandleComplain = async (sender, { unitID, result }) => {
   await TraceSystem.methods.HandleComplain(unitID, result).send({ from: sender });
 };

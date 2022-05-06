@@ -9,7 +9,7 @@
     </div>
     <div class="container">
       <el-input
-        v-model="input"
+        v-model="unitID"
         size="large"
         style="width: 80%; margin: auto"
         placeholder="请输入生产单位ID"
@@ -30,12 +30,13 @@
 </template>
 
 <script>
+import * as bc from '../blockchain';
+
 export default {
   name: 'score',
   data() {
     return {
-      value: 2.5,
-      input: '',
+      unitID: '',
     };
   },
   methods: {
@@ -46,15 +47,17 @@ export default {
         type: 'warning',
       })
         .then(() => {
+          const address = sessionStorage.getItem('user_address');
+          bc.complain(address, { unitID: this.unitID });
           this.$message({
             type: 'success',
-            message: '删除成功!',
+            message: '投诉成功!',
           });
         })
         .catch(() => {
           this.$message({
             type: 'info',
-            message: '已取消删除',
+            message: '已取消投诉',
           });
         });
     },
