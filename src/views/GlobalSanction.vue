@@ -62,10 +62,11 @@ export default {
         // console.log(res);
         for (let i = 0, len = res.length; i < len; i += 1) {
           console.log(res[i]); // 0 1 2 3 4
+          this.tableData[i] = { time: '', name: '' };
           service.get('/unit', { params: { ID: this.unitID } }).then((record) => {
-            this.tableData[i].name = record.name;
+            this.tableData[i].name = `${record.name}(${res[i].returnValues.productionUnitID})`;
           });
-          service.get('/record', { params: { timestamp: res[i].returnValues.timeStamp } }).then((record) => {
+          service.get('/time', { params: { timestamp: res[i].returnValues.timeStamp } }).then((record) => {
             this.tableData[i].time = record.time;
           });
         }

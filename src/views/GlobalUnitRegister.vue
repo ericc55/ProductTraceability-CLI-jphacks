@@ -31,7 +31,7 @@
     <div class="container">
         <el-table :data="traceData" stripe style="width: 100%">
         <el-table-column prop="time" label="时间" width="180" />
-        <el-table-column prop="unitName" label="生产单位名称" width="360" />
+        <el-table-column prop="name" label="生产单位名称" width="360" />
       </el-table>
       </div>
 
@@ -58,15 +58,16 @@ export default {
   {
     traceOn() {
       this.traceData = [];
-      bc.getGlobalHandleComplain(this.unitID).then((res) => {
+      bc.getGlobalUnitRegister(this.unitID).then((res) => {
         // console.log(res);
         for (let i = 0, len = res.length; i < len; i += 1) {
+          this.traceData[i] = { time: '', unitName: '' };
           console.log(res[i]);
-          service.get('/unit', { params: { ID: this.unitID } }).then((record) => {
-            this.tableData[i].name = record.unitName;
+          service.get('/unit', { params: { ID: res[i].returnValues.productionUnitID } }).then((record) => {
+            this.traceData[i].name = `${record.name}(${res[i].returnValues.productionUnitID})`;
           });
-          service.get('/record', { params: { timestamp: res[i].returnValues.timeStamp } }).then((record) => {
-            this.tableData[i].time = record.time;
+          service.get('/time', { params: { timestamp: res[i].returnValues.timeStamp } }).then((record) => {
+            this.traceData[i].time = record.time;
           });
         }
       });

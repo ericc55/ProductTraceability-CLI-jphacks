@@ -74,22 +74,28 @@ export default {
   methods: {
     commit() {
       const address = sessionStorage.getItem('user_address');
+      const ICode = parseInt(this.code, 10);
+      console.log(ICode);
       switch (this.state) {
         case 1:
-          bc.banUser(address, this.code);
+          bc.banUser(address, { userID: ICode });
           break;
         case 2:
-          bc.userRecover(address, this.code);
+          bc.userRecover(address, { userID: ICode });
           break;
         case 3:
-          bc.sanction(address, this.code);
+          bc.sanction(address, { unitID: ICode });
           break;
         case 4:
-          bc.unitRecover(address, this.code);
+          bc.unitRecover(address, { unitID: ICode });
           break;
         default:
           break;
       }
+      this.$message({
+        type: 'success',
+        message: '操作成功!',
+      });
     },
   },
   computed: {

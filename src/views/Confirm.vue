@@ -83,6 +83,10 @@ export default {
       })
         .then(() => {
           that.handle_confirm();
+          this.$message({
+            type: 'success',
+            message: '更新成功!',
+          });
         })
         .catch(() => {
           this.$message({

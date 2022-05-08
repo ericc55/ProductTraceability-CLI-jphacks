@@ -31,7 +31,7 @@
     <div class="container">
         <el-table :data="traceData" stripe style="width: 100%">
         <el-table-column prop="time" label="时间" width="180" />
-        <el-table-column prop="unitName" label="生产单位名称" width="360" />
+        <el-table-column prop="name" label="生产单位名称" width="360" />
         <el-table-column prop="result" label="结果" width="540" />
       </el-table>
       </div>
@@ -50,7 +50,7 @@ export default {
       userID: '',
       unitID: '',
       traceData: [{
-        time: '', result: '', unitName: '',
+        time: '', result: '', name: '',
       }],
       stateTxt: ['属实', '一般', '不属实'],
 
@@ -64,12 +64,13 @@ export default {
         // console.log(res);
         for (let i = 0, len = res.length; i < len; i += 1) {
           console.log(res[i]);
-          this.traceData[i].result = this.stateTxt[res[i].returnValues.result];
+          this.traceData[i] = { result: this.stateTxt[res[i].returnValues.result] };
           service.get('/unit', { params: { ID: this.unitID } }).then((record) => {
-            this.tableData[i].name = record.unitName;
+            console.log(record);
+            this.traceData[i].name = `${record.name}(${res[i].returnValues.productionUnitID})`;
           });
-          service.get('/record', { params: { timestamp: res[i].returnValues.timeStamp } }).then((record) => {
-            this.tableData[i].time = record.time;
+          service.get('/time', { params: { timestamp: res[i].returnValues.timeStamp } }).then((record) => {
+            this.traceData[i].time = record.time;
           });
         }
       });

@@ -47,7 +47,7 @@ export default {
   name: 'trace',
   data() {
     return {
-      productionID: '',
+      productionID: this.$route.params.code,
       traceData: [],
 
     };
@@ -61,6 +61,7 @@ export default {
           console.log(res[i]); // 0 1 2 3 4
           service.get('/record', { params: { ID: res[i].returnValues.productionUnitID, state: res[i].returnValues.state, timestamp: res[i].returnValues.timeStamp } }).then((record) => {
             this.traceData[i] = record;
+            this.traceData[i].name = `${this.traceData[i].name}(${res[i].returnValues.productionUnitID})`;
             console.log(this.traceData);
           });
         }

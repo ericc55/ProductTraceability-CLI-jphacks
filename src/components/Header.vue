@@ -34,13 +34,7 @@
           </span>
           <template #dropdown>
             <el-dropdown-menu>
-              <a
-                href="https://github.com/lin-xin/vue-manage-system"
-                target="_blank"
-              >
-                <el-dropdown-item>项目仓库</el-dropdown-item>
-              </a>
-              <el-dropdown-item command="user">个人中心</el-dropdown-item>
+              <el-dropdown-item command="credit">查看账户信用点</el-dropdown-item>
             </el-dropdown-menu>
           </template>
         </el-dropdown>
@@ -52,7 +46,6 @@
 <script>
 import { computed, onMounted } from 'vue';
 import { useStore } from 'vuex';
-import { useRouter } from 'vue-router';
 import { ElMessage, ElMessageBox } from 'element-plus';
 import service from '../utils/request';
 import * as bc from '../blockchain';
@@ -154,22 +147,26 @@ export default {
       if (document.body.clientWidth < 1500) {
         collapseChage();
       }
-      sessionStorage.setItem('backend', process.env.VUE_APP_BACK_END);
+      const addr = sessionStorage.getItem('user_address');
+      bc.getCredit(addr).then((credit) => {
+        this.credit = credit;
+      });
     });
 
     // 用户名下拉菜单选择事件
-    const router = useRouter();
     const handleCommand = (command) => {
-      if (command === 'loginout') {
-        sessionStorage.removeItem('user_address');
-        router.push('/login');
-      } else if (command === 'user') {
-        router.push('/user');
+      if (command === 'credit') {
+        bc.getCredit().then((credit) => {
+          ElMessageBox.alert(`该账号信用点为 ${credit} 点`, '信用点', {
+            confirmButtonText: 'OK',
+          });
+        });
       }
     };
 
     return {
       username,
+      credit: 0,
       connected: false,
       message,
       collapse,

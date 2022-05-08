@@ -19,6 +19,14 @@ const routes = [
         component: () => import(/* webpackChunkName: "dashboard" */ '../views/Trace.vue'),
       },
       {
+        path: '/traceby/:code',
+        name: 'traceby',
+        meta: {
+          title: '开始溯源',
+        },
+        component: () => import(/* webpackChunkName: "dashboard" */ '../views/Trace.vue'),
+      },
+      {
         path: 'accountOperate',
         name: 'accountOperate',
         meta: {
@@ -54,6 +62,14 @@ const routes = [
           title: '全局查询生产单位封禁',
         },
         component: () => import(/* webpackChunkName: "dashboard" */ '../views/GlobalSanction.vue'),
+      },
+      {
+        path: '/unitInfo',
+        name: 'unitInfo',
+        meta: {
+          title: '全局查询生产单位信息',
+        },
+        component: () => import(/* webpackChunkName: "dashboard" */ '../views/UnitInfo.vue'),
       }, {
         path: '/globalUnitRegister',
         name: 'globalUnitRegister',

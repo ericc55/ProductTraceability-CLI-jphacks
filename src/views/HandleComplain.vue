@@ -15,6 +15,14 @@
         placeholder="请输入被投诉生产单位ID"
       />
     </div>
+     <div class="container">
+      <el-input
+        v-model="userID"
+        size="large"
+        style="width: 80%; margin: auto"
+        placeholder="请输入投诉人ID"
+      />
+    </div>
     <div calss="container">
       <el-select v-model="state" placeholder="请选择">
         <el-option
@@ -50,6 +58,7 @@ export default {
       value: 2.5,
       state: '',
       unitID: '',
+      userID: '',
       options: [
         {
           value: '0',
@@ -69,8 +78,14 @@ export default {
   methods: {
     open() {
       const address = sessionStorage.getItem('user_address');
-      bc.HandleComplain(address, { unitID: this.unitID, result: this.state }).then(() => {
-
+      bc.HandleComplain(
+        address,
+        { userID: this.userID, unitID: this.unitID, result: this.state },
+      ).then(() => {
+        this.$message({
+          type: 'success',
+          message: '处理成功!',
+        });
       });
     },
   },

@@ -70,17 +70,19 @@ export default {
     traceOn() {
       this.traceData = [];
       bc.getGlobalComplain(this.userID, this.unitID).then((res) => {
-        console.log(res);
         for (let i = 0, len = res.length; i < len; i += 1) {
-          console.log(res[i].returnValues.userID);
           const userIDstr = byte.byteToString(res[i].returnValues.userID);
           console.log(userIDstr);
-          this.traceData[i].userID = userIDstr;
+          this.traceData[i] = {
+            userID: userIDstr,
+          };
           service.get('/unit', { params: { ID: this.unitID } }).then((record) => {
-            this.tableData[i].name = record.unitName;
+            console.log(record);
+            this.traceData[i].unitName = `${record.name}(${record.id})`;
           });
-          service.get('/record', { params: { timestamp: res[i].returnValues.timeStamp } }).then((record) => {
-            this.tableData[i].time = record.time;
+          service.get('/time', { params: { timestamp: res[i].returnValues.timeStamp } }).then((record) => {
+            console.log(record);
+            this.traceData[i].time = record.time;
           });
         }
       });

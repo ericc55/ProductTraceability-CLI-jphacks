@@ -77,6 +77,7 @@ export default {
           service.get('/record', { params: { ID: res[i].returnValues.productionUnitID, state: res[i].returnValues.state, timestamp: res[i].returnValues.timeStamp } }).then((record) => {
             this.traceData[i] = record;
             this.traceData[i].code = res[i].returnValues.productionID;
+            this.traceData[i].name = `${this.traceData[i].name}(${res[i].returnValues.productionUnitID})`;
             console.log(this.traceData);
           });
         }

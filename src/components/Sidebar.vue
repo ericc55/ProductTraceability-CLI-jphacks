@@ -61,11 +61,6 @@ export default {
   setup() {
     const items = [
       {
-        icon: 'el-icon-lx-home',
-        index: '/dashboard',
-        title: '系统首页',
-      },
-      {
         icon: 'el-icon-lx-location',
         index: '/trace',
         title: '开始溯源',
@@ -132,8 +127,8 @@ export default {
             title: '查投诉处理信息',
           },
           {
-            index: '/globalUnitRegister',
-            title: '查生产单位注册信息',
+            index: '/unitInfo',
+            title: '查生产单位信息',
           },
         ],
       },

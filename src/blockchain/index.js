@@ -5,7 +5,7 @@ let TraceSystem = null;
 export const updateWeb3 = async (web3) => {
   TraceSystem = new web3.eth.Contract(
     TraceSystemJson.abi,
-    '0xcA838083225eEd7BEfE71bAEE088BaD2AeCE8558',
+    '0x2D3C61de7058106Da627FBA74ddad953702F9632',
   );
 };
 export const getTrace = async (productID) => {
@@ -114,13 +114,13 @@ export const score = async (sender, { unitID, point }) => {
   console.log(sender, unitID, point);
   await TraceSystem.methods.score(id, point * 2).send({ from: sender });
 };
-export const getCredit = async (sender, { userID }) => {
-  const credit = await TraceSystem.methods.getCredit(userID).call({ from: sender });
+export const getCredit = async (sender) => {
+  const credit = await TraceSystem.methods.getCredit().call({ from: sender });
   return credit;
 };
 
-export const getScore = async (sender, { unitID }) => {
-  const credit = await TraceSystem.methods.getScore(unitID).call({ from: sender });
+export const getScore = async ({ unitID }) => {
+  const credit = await TraceSystem.methods.getScore(unitID).call();
   return credit;
 };
 export const getUnitID = async (sender) => {
@@ -128,20 +128,20 @@ export const getUnitID = async (sender) => {
   return id;
 };
 
-export const HandleComplain = async (sender, { unitID, result }) => {
-  await TraceSystem.methods.HandleComplain(unitID, result).send({ from: sender });
+export const HandleComplain = async (sender, { userID, unitID, result }) => {
+  await TraceSystem.methods.HandleComplain(userID, unitID, result).send({ from: sender });
 };
-export const banUser = async (sender, { _userID }) => {
-  await TraceSystem.methods.banUser(_userID).send({ from: sender });
+export const banUser = async (sender, { userID }) => {
+  await TraceSystem.methods.banUser(userID).send({ from: sender });
 };
-export const userRecover = async (sender, { _userID }) => {
-  await TraceSystem.methods.userRecover(_userID).send({ from: sender });
+export const userRecover = async (sender, { userID }) => {
+  await TraceSystem.methods.userRecover(userID).send({ from: sender });
 };
-export const sanction = async (sender, { _unitID }) => {
-  await TraceSystem.methods.sanction(_unitID).send({ from: sender });
+export const sanction = async (sender, { unitID }) => {
+  await TraceSystem.methods.sanction(unitID).send({ from: sender });
 };
-export const unitRecover = async (sender, { _unitID }) => {
-  await TraceSystem.methods.unitRecover(_unitID).send({ from: sender });
+export const unitRecover = async (sender, { unitID }) => {
+  await TraceSystem.methods.unitRecover(unitID).send({ from: sender });
 };
 export default {
   updateWeb3,
