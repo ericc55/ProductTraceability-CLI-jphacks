@@ -175,10 +175,10 @@ const routes = [
   },
 ];
 
-// const router = createRouter({
-//   history: createWebHashHistory(),
-//   routes,
-// });
+const router = createRouter({
+  history: createWebHashHistory(),
+  routes,
+});
 
 // router.beforeEach((to, from, next) => {
 //   document.title = `${to.meta.title} | vue-manage-system`;
