@@ -44,7 +44,7 @@
   </div>
 </template>
 <script>
-import { computed, onMounted } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { useStore } from 'vuex';
 import { ElMessage, ElMessageBox } from 'element-plus';
 import service from '../utils/request';
@@ -55,7 +55,7 @@ export default {
   computed: {
   },
   setup() {
-    const username = sessionStorage.getItem('user_address');
+    const username = ref(sessionStorage.getItem('user_address'));
     const message = 2;
     const store = useStore();
     const collapse = computed(() => store.state.collapse);
@@ -134,6 +134,11 @@ export default {
           const address = res[0];
           console.log(`login as:${address}`);
           sessionStorage.setItem('user_address', address);
+          ElMessage({
+            type: 'success',
+            message: '连接钱包成功',
+          });
+          username.value = address;
           // bc.confirm(address, { productID: '123', state: 1 }).then((one) => {
           //   console.log(one);
           // });
@@ -147,10 +152,10 @@ export default {
       if (document.body.clientWidth < 1500) {
         collapseChage();
       }
-      const addr = sessionStorage.getItem('user_address');
-      bc.getCredit(addr).then((credit) => {
-        this.credit = credit;
-      });
+      // const addr = sessionStorage.getItem('user_address');
+      // bc.getCredit(addr).then((credit) => {
+      //   this.credit = credit;
+      // });
     });
 
     // 用户名下拉菜单选择事件
