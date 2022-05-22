@@ -5,7 +5,7 @@ let TraceSystem = null;
 export const updateWeb3 = async (web3) => {
   TraceSystem = new web3.eth.Contract(
     TraceSystemJson.abi,
-    '0xF91eea26CFEC5f38211bCf6D6E91403033A364a3',
+    '0xFA9bB116168B3204d0ae33EaDB9971cEC31AC518',
   );
 };
 export const getTrace = async (productID) => {

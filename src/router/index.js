@@ -24,7 +24,7 @@ const routes = [
         meta: {
           title: '开始溯源',
         },
-        component: () => import(/* webpackChunkName: "dashboard" */ '../views/Trace.vue'),
+        component: () => import(/* webpackChunkName: "dashboard" */ '../views/TraceBy.vue'),
       },
       {
         path: 'accountOperate',

@@ -9,25 +9,6 @@
       </el-breadcrumb>
     </div>
     <div class="container">
-      <el-input
-        v-model="productionID"
-        size="large"
-        style="width: 80%; margin: auto"
-        placeholder="请输入溯源码"
-      />
-    </div>
-    <div class="container">
-      <el-button
-        size="large"
-        type="success"
-        style="margin: auto"
-        round
-        @click="traceOn"
-        auto-insert-space="true"
-        >开始溯源</el-button
-      >
-    </div>
-    <div class="container">
         <el-table :data="traceData" stripe style="width: 100%">
         <el-table-column prop="time" label="时间" width="360" />
         <el-table-column prop="name" label="生产单位" width="360" />
@@ -67,6 +48,9 @@ export default {
         }
       });
     },
+  },
+  mounted() {
+    this.traceOn();
   },
 };
 </script>
