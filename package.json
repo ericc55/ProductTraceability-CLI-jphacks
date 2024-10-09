@@ -13,7 +13,7 @@
     "axios": "^0.27.2",
     "core-js": "^3.8.3",
     "cropperjs": "^1.5.12",
-    "element-china-area-data": "^5.0.2",
+    // "element-china-area-data": "^5.0.2",
     "element-plus": "^2.1.11",
     "vue": "^3.2.13",
     "vue-cropperjs": "^5.0.0",
